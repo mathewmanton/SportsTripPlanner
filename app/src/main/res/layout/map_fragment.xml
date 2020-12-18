@@ -3,6 +3,7 @@
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/map"
+    style="@android:style/Widget.DatePicker"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -13,25 +14,28 @@
         android:layout_width="match_parent"
         android:layout_height="375dp" />
 
-    <EditText
+    <TextView
         android:id="@+id/filterText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:ems="10"
         android:gravity="center"
-        android:inputType="textPersonName"
-        android:text="@string/filterText" />
+        android:text="@string/filterText"
+        android:textColor="#040404"
+        android:textColorHint="#FFFFFF"
+        android:textSize="30sp" />
 
-    <EditText
+    <TextView
         android:id="@+id/filterTextDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:ems="10"
-        android:gravity="left"
-        android:inputType="textPersonName"
-        android:text="@string/filterTextDate" />
+        android:gravity="start"
+        android:text="@string/filterTextDate"
+        android:textColor="#040404"
+        android:textSize="24sp" />
 
     <LinearLayout
         android:id="@+id/DateLayout"
@@ -41,33 +45,34 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/filterFromDate"
-            android:layout_width="wrap_content"
+            android:id="@+id/editTextDateFrom"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:ems="10"
             android:inputType="date"
             android:text="@string/dateFromText" />
 
         <EditText
-            android:id="@+id/filterToDate"
+            android:id="@+id/editTextDateTo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
             android:inputType="date"
             android:text="@string/dateToText" />
-
     </LinearLayout>
 
-    <EditText
+    <TextView
         android:id="@+id/filterTextTeamName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:ems="10"
-        android:gravity="left"
-        android:inputType="textPersonName"
-        android:text="@string/filterTextTeamName" />
+        android:gravity="start"
+        android:text="@string/filterTextTeamName"
+        android:textColor="#040404"
+        android:textSize="24sp" />
 
     <Spinner
         android:id="@+id/teamNameSelector"

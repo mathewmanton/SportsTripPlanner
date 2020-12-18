@@ -6,4 +6,41 @@
     <string name="dateFromText">From</string>
     <string name="dateToText">To</string>
     <string name="filterTextTeamName">Team Name</string>
+    <string name="anaheim">Anaheim Ducks</string>
+    <string name="arizona">Arizona Coyotes</string>
+    <string name="boston">Boston Bruins</string>
+    <string name="buffalo">Buffalo Sabres</string>
+    <string name="calgary">Calgary Flames</string>
+    <string name="carolina">Carolina Hurricanes</string>
+    <string name="chicago">Chicago Blackhawks</string>
+    <string name="colorado">Colorado Avalanche</string>
+    <string name="columbus">Columbus Blue Jackets</string>
+    <string name="dallas">Dallas Stars</string>
+    <string name="detroit">Detroit Red Wings</string>
+    <string name="edmonton">Edmonton Oilers</string>
+    <string name="florida">Florida Panthers</string>
+    <string name="losAngeles">Los Angeles Kings</string>
+    <string name="minnesota">Minnesota Wild</string>
+    <string name="montreal">Montreal Canadiens</string>
+    <string name="nashville">Nashville Predators</string>
+    <string name="newJersey">New Jersey Devils</string>
+    <string name="newYorkI">New York Islanders</string>
+    <string name="newYorkR">New York Rangers</string>
+    <string name="ottawa">Ottawa Senators</string>
+    <string name="philadelphia">Philadelphia Flyers</string>
+    <string name="pittsburgh">Pittsburgh Penguins</string>
+    <string name="sanJose">San Jose Sharks</string>
+    <string name="stLouis">St. Louis Blues</string>
+    <string name="tampa">Tampa Bay Lightning</string>
+    <string name="toronto">Toronto Maple Leafs</string>
+    <string name="vancouver">Vancouver Canucks</string>
+    <string name="vegas">Vegas Golden Knights</string>
+    <string name="washington">Washington Capitals</string>
+    <string name="winnipeg">Winnipeg Jets</string>
+
+
+
+
+
+
 </resources>
