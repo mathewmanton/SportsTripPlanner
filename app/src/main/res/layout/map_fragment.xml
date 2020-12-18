@@ -63,21 +63,10 @@
             android:text="@string/dateToText" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/filterTextTeamName"
+    <Button
+        android:id="@+id/filterButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:gravity="start"
-        android:text="@string/filterTextTeamName"
-        android:textColor="#040404"
-        android:textSize="24sp" />
-
-    <Spinner
-        android:id="@+id/teamNameSelector"
-        android:layout_width="match_parent"
-        android:layout_height="34dp"
-        android:layout_marginTop="5dp" />
+        android:text="@string/filterButtonText" />
 
 </LinearLayout>
