@@ -7,41 +7,69 @@
     <string name="dateFromText">From</string>
     <string name="dateToText">To</string>
     <string name="filterTextTeamName">Team Name</string>
-    <string name="anaheim">Anaheim Ducks</string>
-    <string name="arizona">Arizona Coyotes</string>
-    <string name="boston">Boston Bruins</string>
-    <string name="buffalo">Buffalo Sabres</string>
-    <string name="calgary">Calgary Flames</string>
-    <string name="carolina">Carolina Hurricanes</string>
-    <string name="chicago">Chicago Blackhawks</string>
-    <string name="colorado">Colorado Avalanche</string>
-    <string name="columbus">Columbus Blue Jackets</string>
-    <string name="dallas">Dallas Stars</string>
-    <string name="detroit">Detroit Red Wings</string>
-    <string name="edmonton">Edmonton Oilers</string>
-    <string name="florida">Florida Panthers</string>
-    <string name="losAngeles">Los Angeles Kings</string>
-    <string name="minnesota">Minnesota Wild</string>
-    <string name="montreal">Montreal Canadiens</string>
-    <string name="nashville">Nashville Predators</string>
-    <string name="newJersey">New Jersey Devils</string>
-    <string name="newYorkI">New York Islanders</string>
-    <string name="newYorkR">New York Rangers</string>
-    <string name="ottawa">Ottawa Senators</string>
-    <string name="philadelphia">Philadelphia Flyers</string>
-    <string name="pittsburgh">Pittsburgh Penguins</string>
-    <string name="sanJose">San Jose Sharks</string>
-    <string name="stLouis">St. Louis Blues</string>
-    <string name="tampa">Tampa Bay Lightning</string>
-    <string name="toronto">Toronto Maple Leafs</string>
-    <string name="vancouver">Vancouver Canucks</string>
-    <string name="vegas">Vegas Golden Knights</string>
-    <string name="washington">Washington Capitals</string>
-    <string name="winnipeg">Winnipeg Jets</string>
-
-
-
-
-
-
+    <!-- NHL Team Names -->
+   <string name="anaheim">Anaheim Ducks</string>
+   <string name="arizona">Arizona Coyotes</string>
+   <string name="boston">Boston Bruins</string>
+   <string name="buffalo">Buffalo Sabres</string>
+   <string name="calgary">Calgary Flames</string>
+   <string name="carolina">Carolina Hurricanes</string>
+   <string name="chicago">Chicago Blackhawks</string>
+   <string name="colorado">Colorado Avalanche</string>
+   <string name="columbus">Columbus Blue Jackets</string>
+   <string name="dallas">Dallas Stars</string>
+   <string name="detroit">Detroit Red Wings</string>
+   <string name="edmonton">Edmonton Oilers</string>
+   <string name="florida">Florida Panthers</string>
+   <string name="losAngeles">Los Angeles Kings</string>
+   <string name="minnesota">Minnesota Wild</string>
+   <string name="montreal">Montreal Canadiens</string>
+   <string name="nashville">Nashville Predators</string>
+   <string name="newJersey">New Jersey Devils</string>
+   <string name="newYorkI">New York Islanders</string>
+   <string name="newYorkR">New York Rangers</string>
+   <string name="ottawa">Ottawa Senators</string>
+   <string name="philadelphia">Philadelphia Flyers</string>
+   <string name="pittsburgh">Pittsburgh Penguins</string>
+   <string name="sanJose">San Jose Sharks</string>
+   <string name="stLouis">St. Louis Blues</string>
+   <string name="tampa">Tampa Bay Lightning</string>
+   <string name="toronto">Toronto Maple Leafs</string>
+   <string name="vancouver">Vancouver Canucks</string>
+   <string name="vegas">Vegas Golden Knights</string>
+   <string name="washington">Washington Capitals</string>
+   <string name="winnipeg">Winnipeg Jets</string>
+    <!-- NFL Team names -->
+   <string name="arizonaNFL">Arizona Cardinals</string>
+   <string name="atlantaNFL">Atlanta Falcons</string>
+   <string name="buffaloNFL">Buffalo Bills</string>
+   <string name="baltimoreNFL">Baltimore Ravens</string>
+   <string name="carolinaNFL">Carolina Panthers</string>
+   <string name="cincinnatiNFL">Cincinnati Bengals</string>
+   <string name="clevelandNFL">Cleveland Browns</string>
+   <string name="chicagoNFL">Chicago Bears</string>
+   <string name="dallasNFL">Dallas Cowboys</string>
+   <string name="denverNFL">Denver Broncos</string>
+   <string name="detroitNFL">Detroit Lions</string>
+   <string name="greenbayNFL">Green Bay Packers</string>
+   <string name="houstonNFL">Houston Texans</string>
+   <string name="indianapolisNFL">Indianapolis Colts</string>
+   <string name="kansasNFL">Kansas City Chiefs</string>
+   <string name="losAngelesCNFL">Los Angeles Chargers</string>
+   <string name="losAngelesRNFL">Los Angeles Rams</string>
+   <string name="jacksonvilleNFL">Jacksonville Jaguars</string>
+   <string name="miamiNFL">Miami Dolphins</string>
+   <string name="minnesotaNFL">Minnesota Vikings</string>
+   <string name="newEnglandNFL">New England Patriots</string>
+   <string name="newOrleansNFL">New Orleans Saints</string>
+   <string name="newYorkGNFL">New York Giants</string>
+   <string name="newYorkJNFL">New York Jets</string>
+   <string name="oaklandNFL">Oakland Raiders</string>
+   <string name="philadelphiaNFL">Philadelphia Eagles</string>
+   <string name="sanFranciscoNFL">San Francisco 49ers</string>
+   <string name="seattleNFL">Seattle Seahawks</string>
+   <string name="pittsburghNFL">Pittsburgh Steelers</string>
+   <string name="tampaNFL">Tampa Bay Buccaneers</string>
+   <string name="tennesseeNFL">Tennessee Titans</string>
+   <string name="washingtonNFL">Washington Football Team</string>
 </resources>
