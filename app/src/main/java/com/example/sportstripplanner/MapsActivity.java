@@ -9,6 +9,7 @@ import android.text.style.ParagraphStyle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,8 +29,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -40,7 +44,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private EditText editTextDateTo;
     private HashMap<String, Team> teams;
     private Button filterTextButton;
-    private League hockeyLeague;
+    private HashMap<String, League> leagues = new HashMap<String, League>();
+    private Spinner leagueSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(null);
         mapView.getMapAsync(this);
+
+        leagueSpinner = findViewById(R.id.leagueDropDown);
 
         editTextDateFrom=(EditText) findViewById(R.id.editTextDateFrom);
         editTextDateFrom.setInputType(InputType.TYPE_NULL);
@@ -64,12 +71,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
         teams = CreateHockeyTeams();
-        hockeyLeague = new League("NHL", teams);
+        leagues.put(getString(R.string.nhlText), new League(getString(R.string.nhlText), teams));
 
         teams = CreateFootballTeams();
-        League footBallLeague = new League("NFL", teams);
+        leagues.put(getString(R.string.nflText), new League(getString(R.string.nflText), teams));
 
-        ParseCSV(R.raw.hockeygames, hockeyLeague);
+        ParseCSV(R.raw.hockeygames, leagues.get(getString(R.string.nhlText)));
 
 
         //add on click for button to filter the games
@@ -79,21 +86,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Date to = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDateTo.getText().toString());
 
                 mMap.clear();
+                String league = (String)leagueSpinner.getSelectedItem();
+                Boolean addMarker = false;
+                List<Game> games = null;
+
+                //Filter
+                if(from != null && to != null) {
+                    games = leagues.get(league).games.stream().filter(game -> game.datePlayed.compareTo(from) >= 0 && game.datePlayed.compareTo(to) <= 0).collect(Collectors.toList());
+                }
+
                 Game game;
-
-                for(int i = 0; i < hockeyLeague.games.size(); ++i)
-                {
-                    game = hockeyLeague.games.get(i);
-
-                    //Filter
-                    if(from != null && to != null) {
-                        if (game.datePlayed.compareTo(from) >= 0 && game.datePlayed.compareTo(to) <= 0) {
-                            //add new markers based on games in that range
+                if(games != null) {
+                    for (int i = 0; i < games.size(); ++i) {
+                        game = games.get(i);
+                        if(game != null) {
                             mMap.addMarker(new MarkerOptions().position(game.homeTeam.arenaPosition).title(game.homeTeam.arenaName).icon(game.homeTeam.teamIcon));
                         }
                     }
                 }
-
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -147,14 +157,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
 
         // Add markers
-        Iterator teamsIterator = hockeyLeague.teams.entrySet().iterator();
+        Iterator teamsIterator = leagues.get("NHL").teams.entrySet().iterator();
         while (teamsIterator.hasNext()) {
             Map.Entry mapElement = (Map.Entry) teamsIterator.next();
             Team team = (Team)mapElement.getValue();
             mMap.addMarker(new MarkerOptions().position(team.arenaPosition).title(team.arenaName).icon(team.teamIcon));
         }
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(hockeyLeague.teams.get(getString(R.string.anaheim)).arenaPosition));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(leagues.get("NHL").teams.get(getString(R.string.anaheim)).arenaPosition));
     }
 
     public void ParseCSV(int csvId, League league)

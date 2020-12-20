@@ -1,12 +1,19 @@
 <resources>
+   <string-array name="leagueOptions">
+      <item>NHL</item>
+      <item>NFL</item>
+   </string-array>
     <string name="app_name">Sports Trip Planner</string>
     <string name="title_activity_maps">Map</string>
     <string name="filterText">Filter Games</string>
+    <string name="leagueFilterText">League</string>
     <string name="filterButtonText">Filter</string>
     <string name="filterTextDate">Date</string>
     <string name="dateFromText">From</string>
     <string name="dateToText">To</string>
     <string name="filterTextTeamName">Team Name</string>
+    <string name="nhlText">NHL</string>
+    <string name="nflText">NFL</string>
     <!-- NHL Team Names -->
    <string name="anaheim">Anaheim Ducks</string>
    <string name="arizona">Arizona Coyotes</string>
