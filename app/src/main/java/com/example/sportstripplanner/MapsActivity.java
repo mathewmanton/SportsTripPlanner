@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.style.ParagraphStyle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,8 +39,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private EditText editTextDateFrom;
     private EditText editTextDateTo;
     private HashMap<String, Team> teams;
-    private Vector<Game> games = new Vector<Game>();
     private Button filterTextButton;
+    private League hockeyLeague;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,44 +64,30 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
         teams = CreateHockeyTeams();
+        hockeyLeague = new League("NHL", teams);
 
-        Team homeTeam;
-        Team awayTeam;
-        Date datePlayed;
+        teams = CreateFootballTeams();
+        League footBallLeague = new League("NFL", teams);
 
-        //parse csv
-        InputStream is = getResources().openRawResource(R.raw.hockeygames);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-        String line = "";
+        ParseCSV(R.raw.hockeygames, hockeyLeague);
 
-        try {
-            while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
-                datePlayed = new SimpleDateFormat("yyyy-MM-dd").parse(tokens[0]);
-                homeTeam = teams.get(tokens[3]);
-                awayTeam = teams.get(tokens[1]);
-                games.add(new Game(datePlayed, homeTeam, awayTeam));
-            }
-        } catch (IOException | ParseException e1) {
-            Log.e("MainActivity", "Error" + line, e1);
-            e1.printStackTrace();
-        }
 
-        //add on click for button to filter the csv
+        //add on click for button to filter the games
         filterTextButton.setOnClickListener(v -> {
             try {
                 Date from = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDateFrom.getText().toString());
                 Date to = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDateTo.getText().toString());
 
-                if(from != null && to != null)
+                mMap.clear();
+                Game game;
+
+                for(int i = 0; i < hockeyLeague.games.size(); ++i)
                 {
-                    mMap.clear();
-                    Game game;
-                    for(int i = 0; i < games.size(); ++i)
-                    {
-                        game = games.get(i);
-                        if(game.datePlayed.compareTo(from) >= 0 && game.datePlayed.compareTo(to) <= 0)
-                        {
+                    game = hockeyLeague.games.get(i);
+
+                    //Filter
+                    if(from != null && to != null) {
+                        if (game.datePlayed.compareTo(from) >= 0 && game.datePlayed.compareTo(to) <= 0) {
                             //add new markers based on games in that range
                             mMap.addMarker(new MarkerOptions().position(game.homeTeam.arenaPosition).title(game.homeTeam.arenaName).icon(game.homeTeam.teamIcon));
                         }
@@ -160,15 +147,41 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
 
         // Add markers
-        Iterator teamsIterator = teams.entrySet().iterator();
+        Iterator teamsIterator = hockeyLeague.teams.entrySet().iterator();
         while (teamsIterator.hasNext()) {
             Map.Entry mapElement = (Map.Entry) teamsIterator.next();
             Team team = (Team)mapElement.getValue();
             mMap.addMarker(new MarkerOptions().position(team.arenaPosition).title(team.arenaName).icon(team.teamIcon));
         }
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(teams.get(getString(R.string.anaheim)).arenaPosition));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(hockeyLeague.teams.get(getString(R.string.anaheim)).arenaPosition));
     }
+
+    public void ParseCSV(int csvId, League league)
+    {
+        //parse csv for game info
+        Team homeTeam;
+        Team awayTeam;
+        Date datePlayed;
+
+        InputStream is = getResources().openRawResource(csvId);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+        String line = "";
+
+        try {
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",");
+                datePlayed = new SimpleDateFormat("yyyy-MM-dd").parse(tokens[0]);
+                homeTeam = league.teams.get(tokens[3]);
+                awayTeam = league.teams.get(tokens[1]);
+                league.games.add(new Game(datePlayed, homeTeam, awayTeam));
+            }
+        } catch (IOException | ParseException e1) {
+            Log.e("MainActivity", "Error" + line, e1);
+            e1.printStackTrace();
+        }
+    }
+
 
     public HashMap<String, Team> CreateHockeyTeams()
     {
@@ -208,6 +221,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         return hockeyTeams;
     }
+
+    public HashMap<String, Team> CreateFootballTeams()
+    {
+        HashMap<String, Team> footballTeams = new HashMap<String, Team>();
+
+        return footballTeams;
+    }
+
 
     public void ShowDatePicker(EditText editText) {
         final Calendar calendar = Calendar.getInstance();

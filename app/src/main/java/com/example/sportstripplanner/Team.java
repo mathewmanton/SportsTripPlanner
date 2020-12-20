@@ -13,6 +13,7 @@ public class Team {
 
     public Team(String name, LatLng arenaPosition, String arenaName, int iconId)
     {
+
         this.name = name;
         this.arenaPosition = arenaPosition;
         this.arenaName = arenaName;
