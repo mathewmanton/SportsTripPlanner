@@ -27,6 +27,7 @@
         android:textSize="30sp" />
 
     <LinearLayout
+        android:id="@+id/LeaugeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -44,7 +45,7 @@
 
         <Spinner
             android:id="@+id/leagueDropDown"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:entries="@array/leagueOptions"
@@ -52,10 +53,33 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/teamFilterText"
+            android:layout_width="204dp"
+            android:layout_height="45dp"
+            android:ems="10"
+            android:gravity="start|center_vertical"
+            android:text="@string/filterText"
+            android:textColor="#040404"
+            android:textColorHint="#FFFFFF"
+            android:textSize="24sp" />
+
+        <Spinner
+            android:id="@+id/teamDropDown"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:entries="@array/NHLTeams" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/DateLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <EditText
@@ -64,6 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:importantForAutofill="no"
             android:inputType="date"
             android:text="@string/dateFromText" />
 
@@ -73,6 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:importantForAutofill="no"
             android:inputType="date"
             android:text="@string/dateToText" />
     </LinearLayout>
@@ -83,4 +109,6 @@
         android:layout_height="wrap_content"
         android:text="@string/filterButtonText" />
 
-</LinearLayout>
+
+
+    </LinearLayout>

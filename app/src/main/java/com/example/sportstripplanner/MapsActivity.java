@@ -31,8 +31,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -87,13 +85,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 mMap.clear();
                 String league = (String)leagueSpinner.getSelectedItem();
-                Boolean addMarker = false;
                 List<Game> games = null;
 
-                //Filter
+                //Filter for Date
                 if(from != null && to != null) {
                     games = leagues.get(league).games.stream().filter(game -> game.datePlayed.compareTo(from) >= 0 && game.datePlayed.compareTo(to) <= 0).collect(Collectors.toList());
                 }
+
 
                 Game game;
                 if(games != null) {
