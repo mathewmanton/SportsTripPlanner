@@ -7,7 +7,7 @@
     <string name="filterTextDate">Date</string>
     <string name="dateFromText">From</string>
     <string name="dateToText">To</string>
-    <string name="filterTextTeamName">Team Name</string>
+    <string name="filterTextTeamName">Team</string>
     <string name="nhlText">NHL</string>
     <string name="nflText">NFL</string>
    <!-- Leagues for filtering -->
@@ -16,7 +16,7 @@
       <item>NFL</item>
    </string-array>
    <!-- NHL Team Names for filter -->
-   <string-array name="NHLTeams">
+   <string-array name="nhlTeams">
       <item>All Teams</item>
       <item>Anaheim Ducks</item>
       <item>Arizona Coyotes</item>
@@ -51,7 +51,7 @@
       <item>Winnipeg Jets</item>
    </string-array>
    <!-- NFL Team Names for filter -->
-   <string-array name="NFLTeams">
+   <string-array name="nflTeams">
       <item>All Teams</item>
       <item>Arizona Cardinals</item>
       <item>Atlanta Falcons</item>

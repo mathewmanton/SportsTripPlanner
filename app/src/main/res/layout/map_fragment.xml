@@ -63,7 +63,7 @@
             android:layout_height="45dp"
             android:ems="10"
             android:gravity="start|center_vertical"
-            android:text="@string/filterText"
+            android:text="@string/filterTextTeamName"
             android:textColor="#040404"
             android:textColorHint="#FFFFFF"
             android:textSize="24sp" />
@@ -73,7 +73,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:entries="@array/NHLTeams" />
+            android:entries="@array/nhlTeams" />
     </LinearLayout>
 
     <LinearLayout

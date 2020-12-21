@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.text.style.ParagraphStyle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -44,6 +47,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Button filterTextButton;
     private HashMap<String, League> leagues = new HashMap<String, League>();
     private Spinner leagueSpinner;
+    private Spinner teamSpinner;
+    private String currLeague;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,39 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView.getMapAsync(this);
 
         leagueSpinner = findViewById(R.id.leagueDropDown);
+        teamSpinner = findViewById(R.id.teamDropDown);
+
+        ArrayAdapter<CharSequence> nhlAdapter = ArrayAdapter.createFromResource(this, R.array.nhlTeams, android.R.layout.simple_spinner_item);
+        nhlAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        ArrayAdapter<CharSequence> nflAdapter = ArrayAdapter.createFromResource(this, R.array.nflTeams, android.R.layout.simple_spinner_item);
+        nflAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        leagueSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(currLeague != (String)leagueSpinner.getSelectedItem())
+                {
+                    String newItem = (String)leagueSpinner.getSelectedItem();
+                    //modify team list to new league
+                    if(newItem == getString(R.string.nhlText))
+                    {
+                        teamSpinner.setAdapter(nhlAdapter);
+                        currLeague = getString(R.string.nhlText);
+                    }
+                    else if(newItem == getString(R.string.nflText))
+                    {
+                        teamSpinner.setAdapter(nflAdapter);
+                        currLeague = getString(R.string.nflText);
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         editTextDateFrom=(EditText) findViewById(R.id.editTextDateFrom);
         editTextDateFrom.setInputType(InputType.TYPE_NULL);
@@ -75,30 +113,61 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         leagues.put(getString(R.string.nflText), new League(getString(R.string.nflText), teams));
 
         ParseCSV(R.raw.hockeygames, leagues.get(getString(R.string.nhlText)));
+        ParseCSV(R.raw.footballgames, leagues.get(getString(R.string.nflText)));
 
 
         //add on click for button to filter the games
         filterTextButton.setOnClickListener(v -> {
             try {
-                Date from = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDateFrom.getText().toString());
-                Date to = new SimpleDateFormat("dd/MM/yyyy").parse(editTextDateTo.getText().toString());
+                String fromText = editTextDateFrom.getText().toString();
+                String toText = editTextDateTo.getText().toString();
+                Date from = null;
+                Date to = null;
+                String team = (String)teamSpinner.getSelectedItem();
+                int selectedTeamId = teamSpinner.getSelectedItemPosition();
+
+
+                if(!fromText.isEmpty() && !toText.isEmpty() && !fromText.equals(getString(R.string.dateFromText)) && !toText.equals(getString(R.string.dateToText))) {
+                     from = new SimpleDateFormat("dd/MM/yyyy").parse(fromText);
+                     to = new SimpleDateFormat("dd/MM/yyyy").parse(toText);
+                }
 
                 mMap.clear();
                 String league = (String)leagueSpinner.getSelectedItem();
-                List<Game> games = null;
+                List<Game> games = leagues.get(league).games;
 
                 //Filter for Date
                 if(from != null && to != null) {
-                    games = leagues.get(league).games.stream().filter(game -> game.datePlayed.compareTo(from) >= 0 && game.datePlayed.compareTo(to) <= 0).collect(Collectors.toList());
+                    Date finalFrom = from;
+                    Date finalTo = to;
+                    games = games.stream().filter(game -> game.datePlayed.compareTo(finalFrom) >= 0 && game.datePlayed.compareTo(finalTo) <= 0).collect(Collectors.toList());
                 }
 
+                //Filter for team
+                if(teamSpinner.getSelectedItemPosition() != 0)
+                {
+                    games = games.stream().filter(game -> game.homeTeam.name == team || game.awayTeam.name == team).collect(Collectors.toList());
+                }
 
                 Game game;
                 if(games != null) {
                     for (int i = 0; i < games.size(); ++i) {
                         game = games.get(i);
                         if(game != null) {
-                            mMap.addMarker(new MarkerOptions().position(game.homeTeam.arenaPosition).title(game.homeTeam.arenaName).icon(game.homeTeam.teamIcon));
+                            if(selectedTeamId == 0) {
+                                mMap.addMarker(new MarkerOptions().position(game.homeTeam.arenaPosition).title(game.homeTeam.arenaName).icon(game.homeTeam.teamIcon));
+                            }
+                            else
+                            {
+                                if(game.awayTeam.name == team)
+                                {
+                                    mMap.addMarker(new MarkerOptions().position(game.homeTeam.arenaPosition).title(game.homeTeam.arenaName).icon(game.awayTeam.teamIcon));
+                                }
+                                else if(game.homeTeam.name == team)
+                                {
+                                    mMap.addMarker(new MarkerOptions().position(game.homeTeam.arenaPosition).title(game.homeTeam.arenaName).icon(game.homeTeam.teamIcon));
+                                }
+                            }
                         }
                     }
                 }
